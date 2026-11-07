@@ -1,4 +1,20 @@
 (function () {
+  // Theme preview switch
+  var root = document.documentElement;
+  var sw = document.querySelectorAll('.theme-switch button');
+  function mark() {
+    var cur = root.getAttribute('data-theme');
+    sw.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.set === cur ? 'true' : 'false'); });
+  }
+  sw.forEach(function (b) {
+    b.addEventListener('click', function () {
+      root.setAttribute('data-theme', b.dataset.set);
+      try { localStorage.setItem('seram-theme', b.dataset.set); } catch (e) {}
+      mark();
+    });
+  });
+  mark();
+
   // Mobile menu
   var btn = document.querySelector('.menu-btn');
   var nav = document.querySelector('.nav');
